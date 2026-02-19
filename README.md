@@ -7,26 +7,34 @@
 ​## Kernfunktionen & was dahintersteckt
 
 ### ​1. Nutzer-Identifikation (whoami)
+
 ​Bevor man ein System prüft, muss man wissen, wer man ist. Das Skript zeigt den aktuellen Benutzernamen an.
 ​Lerneffekt: Verstehen von Benutzerrechten und dem Unterschied zwischen Standard-Usern und dem Administrator (root).
 
 ### ​2. Suche nach riskanten Dateirechten (find -perm)
+
 ​Das Skript sucht im Home-Verzeichnis gezielt nach Dateien, die das Recht 777 haben.
 ​Was bedeutet -perm 777? Das ist der „Jeder darf alles“-Modus. Jedes Mitglied im System kann diese Datei lesen, ändern oder löschen.
 ​Hintergrund: In einem sicheren System ist das ein massives Risiko. Ich habe gelernt, wie man solche „offenen Scheunentore“ mit einem Befehl findet.
 
 ### ​3. Netzwerk-Überwachung (netstat -tuln)
+
 ​Hier listet das Tool alle offenen Ports auf, die gerade „lauschen“ (Listening).
+
 ​Die Logik hinter -tuln:
 
 ​t / u: Zeigt TCP- und UDP-Verbindungen.
-​l: Zeigt nur die Ports, die auf „Listen“ (Zuhören) stehen.
-​n: Zeigt Zahlen statt Namen (z.B. Port 80 statt „http“), was für die technische Analyse präziser ist.
+​l: Zeigt nur die Ports, die auf „Listen“ (Zuhören) stehen
+​n: Zeigt Zahlen statt Namen (z.B. Port 80 statt „http“), was für die technische Analyse präziser ist
+
 ​Sicherheitsfaktor: Jedes offene Programm im Netzwerk ist ein potenzieller Angriffspunkt. Das Skript macht diese „Türen“ sichtbar.
 
 ### ​4. SSH-Konfigurations-Check (grep)
+
 ​Das Skript schaut direkt in die Konfigurationsdatei des SSH-Dienstes.
+
 ​Ziel: Prüfung des Parameters PermitRootLogin.
+
 ​Wichtigkeit: Es ist Best Practice, den direkten Root-Login von außen zu verbieten. Mit dem grep-Befehl filtert das Skript diese eine wichtige Zeile aus der großen Datei heraus.
 
 ---
@@ -34,10 +42,12 @@
 ​## Installation & Nutzung
 
 ### ​Voraussetzungen
+
 ​Ein Linux-System (z. B. Ubuntu, Debian oder innerhalb einer VM).
 ​Das Paket net-tools (für den netstat-Befehl).
 
 ### ​Schnellstart
+
 1. Lade die Datei audit.sh herunter.
 2.Mache die Datei ausführbar (sonst lässt Linux sie nicht starten):
  
