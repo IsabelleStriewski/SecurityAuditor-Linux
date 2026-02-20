@@ -79,7 +79,7 @@ Um sicherzugehen, dass das Skript stabil läuft, habe ich es in einer frischen U
 
 ## Troubleshooting & Learning (Debugging)
  
-In der IT läuft selten alles auf Anhieb perfekt – besonders in einer frischen Test-Umgebung. Während der Entwicklung und dem Testlauf in einer Ubuntu-VM sind drei typische Herausforderungen aufgetreten, die ich analysiert und gelöst habe:
+Während der Entwicklung und dem Testlauf in einer Ubuntu-VM sind drei typische Herausforderungen aufgetreten, die ich analysiert und gelöst habe:
  
 ### 1. Fehlende System-Tools (`netstat` nicht gefunden)
 * **Problem:** Das Skript konnte die Netzwerk-Ports nicht auslesen, da `netstat` in modernen Minimal-Installationen oft fehlt.
