@@ -62,6 +62,44 @@ chmod +x audit.sh
 
 ---
 
+## Beweis der Funktionalität (Testing)
+ 
+Um sicherzugehen, dass das Skript stabil läuft, habe ich es in einer frischen Ubuntu-VM getestet. 
+ 
+![Screenshot vom Testlauf Start](images/Testlauf-Start.png)
+
+![Screenshot vom Testlauf Ende](images/Testlauf-Ende.png)
+ 
+**Was man hier sieht:**
+* Der **Benutzer-Check** erkennt korrekt, dass das Skript als `root` ausgeführt wird.
+* Der **Rechte-Audit** findet meine absichtlich erstellte Test-Datei (`risk-test.txt`).
+* Der **Netzwerk-Scan** zeigt alle aktiven Ports an, nachdem ich `net-tools` nachinstalliert habe.
+ 
+---
+
+## Troubleshooting & Learning (Debugging)
+ 
+In der IT läuft selten alles auf Anhieb perfekt – besonders in einer frischen Test-Umgebung. Während der Entwicklung und dem Testlauf in einer Ubuntu-VM sind drei typische Herausforderungen aufgetreten, die ich analysiert und gelöst habe:
+ 
+### 1. Fehlende System-Tools (`netstat` nicht gefunden)
+* **Problem:** Das Skript konnte die Netzwerk-Ports nicht auslesen, da `netstat` in modernen Minimal-Installationen oft fehlt.
+* **Lösung:** Installation der `net-tools` via:
+  ```bash
+  sudo apt update && sudo apt install net-tools -y
+
+### 2. Fehlende SSH-Konfiguration
+* **Problem:** Die Datei `/etc/ssh/sshd_config` wurde nicht gefunden.
+* **Ursache:** Der SSH-Dienst war in der VM noch nicht installiert.
+* **Lösung:** Installation des `openssh-server`. Erst dadurch wurde die Konfigurationsdatei erstellt, die mein Skript prüfen wollte.
+ 
+### 3. Syntax-Fehler & Berechtigungen
+* **Syntax:** Ein fehlendes Leerzeichen bei einem `echo`-Befehl (`ech====`) führte zu einer Fehlermeldung ("Befehl nicht gefunden"). Dies wurde im Code korrigiert.
+* **Rechte:** Da das Skript in Systemdateien liest, wurde mir klar, dass eine Ausführung mit Root-Rechten (`sudo ./audit.sh`) zwingend erforderlich ist.
+ 
+> **Fazit:** Diese Fehler waren extrem wertvoll. Sie haben mir gezeigt, dass ein guter Entwickler nicht nur Code schreiben, sondern auch die Umgebung (VM) verstehen und vorbereiten muss.
+ 
+---
+
 ## Roadmap (nächste Schritte)
 
 - [ ] Fehlerbehandlung: Eine Abfrage einbauen, ob netstat überhaupt installiert ist.
